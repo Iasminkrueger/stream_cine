@@ -1,0 +1,45 @@
+name: Segurança e qualidade
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  seguranca:
+    name: Verificação de segurança
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.9'
+          channel: 'stable'
+
+      - name: Instalar dependências
+        run: flutter pub get
+
+      - name: Analisar código
+        run: flutter analyze
+
+  dependencias:
+    name: Verificação de dependências
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Revisar dependências
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
