@@ -45,7 +45,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Interestelar',
       'genero': 'Ficção científica',
       'nota': '8.7',
-       'favorito': false,
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
     },
@@ -77,20 +77,26 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Divertida Mente',
       'genero': 'Animação',
       'nota': '8.1',
-       'favorito': false,
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/62SAZfLyBvTbqM3Wg4g7J5c7yZK.jpg',
     },
   ];
 
-  final List<bool> favoritos = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  final TextEditingController _buscaController = TextEditingController();
+  String _termoBusca = '';
+
+  List<Map<String, dynamic>> get filmesFiltrados {
+    if (_termoBusca.isEmpty) {
+      return filmes;
+    }
+    return filmes.where((filme) {
+      return filme['nome']
+          .toString()
+          .toLowerCase()
+          .contains(_termoBusca.toLowerCase());
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +123,23 @@ class _TelaInicialState extends State<TelaInicial> {
               ),
             ),
             const SizedBox(height: 10),
+            TextField(
+              controller: _buscaController,
+              decoration: const InputDecoration(
+                hintText: 'Buscar filme pelo nome...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (valor) {
+                setState(() {
+                  _termoBusca = valor;
+                });
+              },
+            ),
+            const SizedBox(height: 10),
             Expanded(
               child: GridView.builder(
-                itemCount: filmes.length,
+                itemCount: filmesFiltrados.length,
                 gridDelegate:
                     const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -140,7 +160,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                   top: Radius.circular(8),
                                 ),
                                 child: CachedNetworkImage(
-                                  imageUrl: filmes[index]['imagem'],
+                                  imageUrl: filmesFiltrados[index]['imagem'],
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) {
@@ -164,15 +184,15 @@ class _TelaInicialState extends State<TelaInicial> {
                                 child: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      favoritos[index] =
-                                          !favoritos[index];
+                                      filmesFiltrados[index]['favorito'] =
+                                          !filmesFiltrados[index]['favorito'];
                                     });
 
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          favoritos[index]
+                                          filmesFiltrados[index]['favorito']
                                               ? 'Filme adicionado aos favoritos!'
                                               : 'Filme removido dos favoritos!',
                                         ),
@@ -180,7 +200,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                     );
                                   },
                                   icon: Icon(
-                                    favoritos[index]
+                                    filmesFiltrados[index]['favorito']
                                         ? Icons.favorite
                                         : Icons.favorite_border,
                                     color: Colors.red,
@@ -197,7 +217,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                 CrossAxisAlignment.start,
                             children: [
                               Text(
-                                filmes[index]['nome'],
+                                filmesFiltrados[index]['nome'],
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -207,7 +227,7 @@ class _TelaInicialState extends State<TelaInicial> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                filmes[index]['genero'],
+                                filmesFiltrados[index]['genero'],
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
@@ -222,7 +242,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    filmes[index]['nota'],
+                                    filmesFiltrados[index]['nota'],
                                   ),
                                 ],
                               ),
