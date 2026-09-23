@@ -37,6 +37,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Homem-Aranha',
       'genero': 'Ação',
       'nota': '8.2',
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
     },
@@ -44,6 +45,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Interestelar',
       'genero': 'Ficção científica',
       'nota': '8.7',
+       'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
     },
@@ -51,6 +53,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Vingadores: Ultimato',
       'genero': 'Ação',
       'nota': '8.3',
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
     },
@@ -58,6 +61,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Toy Story',
       'genero': 'Animação',
       'nota': '8.3',
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg',
     },
@@ -65,6 +69,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Batman',
       'genero': 'Ação',
       'nota': '8.5',
+      'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg',
     },
@@ -72,6 +77,7 @@ class _TelaInicialState extends State<TelaInicial> {
       'nome': 'Divertida Mente',
       'genero': 'Animação',
       'nota': '8.1',
+       'favorito': false,
       'imagem':
           'https://image.tmdb.org/t/p/w500/62SAZfLyBvTbqM3Wg4g7J5c7yZK.jpg',
     },
