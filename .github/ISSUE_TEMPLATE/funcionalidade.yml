@@ -1,0 +1,32 @@
+name: Solicitação de funcionalidade
+description: Sugira uma melhoria para o Stream Cine
+title: "[Funcionalidade]: "
+labels: ["melhoria"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual necessidade essa funcionalidade atende?
+      description: Explique a ideia ou o problema.
+    validations:
+      required: true
+  - type: textarea
+    id: solucao
+    attributes:
+      label: Funcionalidade sugerida
+      description: Como ela poderia funcionar?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área do aplicativo
+      options:
+        - Catálogo de filmes
+        - Pesquisa
+        - Favoritos
+        - Imagens e cartazes
+        - Interface
+        - Outra
+    validations:
+      required: true
