@@ -71,6 +71,8 @@ O projeto também possui uma configuração de integração contínua com GitHub
 
 O código-fonte é versionado com Git e hospedado no GitHub. O projeto utiliza arquivos de configuração para organizar as dependências, manter arquivos desnecessários fora do repositório e automatizar verificações de qualidade e segurança.
 
+O Plano de Gerenciamento de Configuração (Enfoque DevOps) está disponível em [docs/Gerenciamento_Configuracao_Stream_Cine.pdf](docs/Gerenciamento_Configuracao_Stream_Cine.pdf).
+
 ## Contribuição
 
 Alterações no projeto podem ser organizadas por meio de branches e Pull Requests, permitindo revisar as modificações antes de incorporá-las à branch principal.
