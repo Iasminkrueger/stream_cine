@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'filme_utils.dart';
 
 void main() {
   runApp(const StreamCineApp());
@@ -83,19 +85,19 @@ class _TelaInicialState extends State<TelaInicial> {
     },
   ];
 
-  final TextEditingController _buscaController = TextEditingController();
+  final TextEditingController _buscaController =
+      TextEditingController();
+
   String _termoBusca = '';
 
   List<Map<String, dynamic>> get filmesFiltrados {
-    if (_termoBusca.isEmpty) {
-      return filmes;
-    }
-    return filmes.where((filme) {
-      return filme['nome']
-          .toString()
-          .toLowerCase()
-          .contains(_termoBusca.toLowerCase());
-    }).toList();
+    return filtrarFilmes(filmes, _termoBusca);
+  }
+
+  @override
+  void dispose() {
+    _buscaController.dispose();
+    super.dispose();
   }
 
   @override
@@ -156,16 +158,19 @@ class _TelaInicialState extends State<TelaInicial> {
                           child: Stack(
                             children: [
                               ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
+                                borderRadius:
+                                    const BorderRadius.vertical(
                                   top: Radius.circular(8),
                                 ),
                                 child: CachedNetworkImage(
-                                  imageUrl: filmesFiltrados[index]['imagem'],
+                                  imageUrl:
+                                      filmesFiltrados[index]['imagem'],
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                   placeholder: (context, url) {
                                     return const Center(
-                                      child: CircularProgressIndicator(),
+                                      child:
+                                          CircularProgressIndicator(),
                                     );
                                   },
                                   errorWidget: (context, url, error) {
@@ -185,14 +190,16 @@ class _TelaInicialState extends State<TelaInicial> {
                                   onPressed: () {
                                     setState(() {
                                       filmesFiltrados[index]['favorito'] =
-                                          !filmesFiltrados[index]['favorito'];
+                                          !filmesFiltrados[index]
+                                              ['favorito'];
                                     });
 
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          filmesFiltrados[index]['favorito']
+                                          filmesFiltrados[index]
+                                                  ['favorito']
                                               ? 'Filme adicionado aos favoritos!'
                                               : 'Filme removido dos favoritos!',
                                         ),

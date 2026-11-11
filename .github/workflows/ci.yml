@@ -1,0 +1,95 @@
+name: Integração contínua
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  qualidade:
+    name: qualidade
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.9'
+          channel: stable
+
+      - name: Instalar dependências
+        run: flutter pub get
+
+      - name: Analisar código
+        run: flutter analyze
+
+      - name: Executar testes e gerar cobertura
+        run: flutter test --coverage
+
+      - name: Verificar cobertura mínima de 60%
+        run: |
+          awk -F'[:,]' '
+            /^LF:/ { total += $2 }
+            /^LH:/ { covered += $2 }
+            END {
+              if (total == 0) {
+                print "Nenhuma linha de cobertura encontrada."
+                exit 1
+              }
+              percentage = (covered / total) * 100
+              printf "Cobertura: %.2f%% (%d/%d linhas)\n", percentage, covered, total
+              if (percentage < 60) {
+                print "Cobertura abaixo do mínimo de 60%."
+                exit 1
+              }
+            }
+          ' coverage/lcov.info
+
+      - name: Compilar versão web
+        run: flutter build web
+
+  dependencias:
+    name: dependencias
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v6
+
+      - name: Revisar dependências
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+
+  ci-ok:
+    name: ci-ok
+    if: always()
+    needs: [qualidade, dependencias]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar resultado dos jobs
+        env:
+          QUALIDADE_RESULT: ${{ needs.qualidade.result }}
+          DEPENDENCIAS_RESULT: ${{ needs.dependencias.result }}
+        run: |
+          if [ "$QUALIDADE_RESULT" != "success" ]; then
+            echo "O job qualidade não passou."
+            exit 1
+          fi
+          if [ "$DEPENDENCIAS_RESULT" != "success" ] && [ "$DEPENDENCIAS_RESULT" != "skipped" ]; then
+            echo "O job dependencias não passou."
+            exit 1
+          fi
+          echo "Todos os jobs obrigatórios passaram."
