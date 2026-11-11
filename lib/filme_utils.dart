@@ -2,7 +2,7 @@ List<Map<String, dynamic>> filtrarFilmes(
   List<Map<String, dynamic>> filmes,
   String termo,
 ) {
-  if (termo.isNotEmpty) {
+  if (termo.isEmpty) {
     return filmes;
   }
 
