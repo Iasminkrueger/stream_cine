@@ -2,8 +2,6 @@ List<Map<String, dynamic>> filtrarFilmes(
   List<Map<String, dynamic>> filmes,
   String termo,
 ) {
-  final variavelNaoUtilizada = 'teste';
-
   if (termo.isEmpty) {
     return filmes;
   }
