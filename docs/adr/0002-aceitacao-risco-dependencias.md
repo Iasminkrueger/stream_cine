@@ -16,6 +16,18 @@ Alertas de severidade alta devem ser analisados individualmente, considerando se
 
 A aceitação de qualquer risco deve ser documentada em uma Issue, com justificativa, responsável e prazo para revisão. Vulnerabilidades críticas não devem ser aceitas sem correção ou avaliação específica.
 
+## Situação verificada em 17/11/2026
+
+Foi realizada uma consulta à seção Dependabot Alerts do repositório Stream Cine.
+
+O GitHub apresentou os seguintes resultados:
+
+- Alertas abertos: 0.
+- Alertas fechados: 0.
+- Arquivos de dependências verificados pelo GitHub no dia anterior à consulta.
+
+No momento da verificação, não foram identificados alertas abertos pelo Dependabot. Essa situação deverá ser reavaliada periodicamente, pois novos alertas podem surgir com atualizações das dependências.
+
 ## Alternativas consideradas
 
 - Bloquear a integração contínua para qualquer vulnerabilidade.
