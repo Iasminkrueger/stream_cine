@@ -1,5 +1,4 @@
-
-# Rastreabilidade de Versões — Stream Cine
+﻿# Rastreabilidade de Versões — Stream Cine
 
 ## 1. Objetivo
 
@@ -35,9 +34,11 @@ A aprovação humana e a integração dos PRs ainda precisam ser confirmadas.
 
 ## 5. Issue relacionada
 
-A consulta ao repositório em 17/11/2026 não identificou Issues abertas.
+Foi criada a [Issue #12 — CCM: avaliar atualização major de cached_network_image](https://github.com/Iasminkrueger/stream_cine/issues/12).
 
-A Issue de mudança de alto risco prevista na Aula 4 ainda precisa ser criada após a disponibilização do formulário na branch principal.
+A Issue registra a classificação de risco alto, os possíveis impactos, o plano de testes e o plano de rollback com referência à Release v1.4.0.
+
+A decisão do revisor permanece pendente de avaliação humana.
 
 ## 6. Aprovação de produção
 
@@ -51,7 +52,7 @@ A evidência de aprovação de produção e a execução do workflow CD ainda pr
 - Confirmar a revisão e aprovação associadas à versão de referência.
 - Registrar o resultado da execução do CD.
 - Registrar quem aprovou a publicação e quando.
-- Criar e relacionar a Issue de mudança de alto risco.
+- Registrar a decisão do revisor na Issue #12.
 - Confirmar a execução do rollback.
 
 ## 8. Conclusão
