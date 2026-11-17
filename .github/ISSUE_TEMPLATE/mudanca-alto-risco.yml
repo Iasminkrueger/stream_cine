@@ -1,0 +1,64 @@
+
+name: Mudança de alto risco
+description: Solicitação de avaliação e aprovação de uma mudança de alto risco no Stream Cine
+title: "[ALTO RISCO] "
+labels: ["alto-risco"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Preencha esta solicitação antes de executar uma mudança que possa afetar a produção.
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição da mudança
+      description: Explique o que será alterado e por quê.
+      placeholder: Descreva a mudança...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risco
+    attributes:
+      label: Tipo de risco
+      options:
+        - Dados pessoais
+        - Alteração de dependências
+        - Mudança na estrutura de dados
+        - Correção urgente em produção
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: impacto
+    attributes:
+      label: Impacto esperado
+      description: Quais partes do Stream Cine podem ser afetadas?
+    validations:
+      required: true
+
+  - type: textarea
+    id: testes
+    attributes:
+      label: Plano de testes
+      description: Como será verificado que a mudança funciona?
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Plano de rollback
+      description: Explique como voltar à versão anterior. Use uma tag existente, por exemplo v1.4.0.
+    validations:
+      required: true
+
+  - type: textarea
+    id: decisao
+    attributes:
+      label: Decisão do revisor
+      description: O colega revisor deve registrar Approved, Approved with caveats ou Rejected, com justificativa.
+    validations:
+      required: false
