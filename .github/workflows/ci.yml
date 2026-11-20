@@ -1,5 +1,5 @@
 
-name: Integracao continua
+name: Integração contínua
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar codigo
+      - name: Baixar código
         uses: actions/checkout@v6
 
       - name: Configurar Flutter
@@ -25,16 +25,16 @@ jobs:
           flutter-version: '3.50.0'
           channel: stable
 
-      - name: Instalar dependencias
+      - name: Instalar dependências
         run: flutter pub get
 
-      - name: Analisar codigo
+      - name: Analisar código
         run: flutter analyze --no-fatal-infos
 
       - name: Executar testes e gerar cobertura
         run: flutter test --coverage
 
-      - name: Verificar cobertura minima de 60%
+      - name: Verificar cobertura mínima de 60%
         run: |
           awk -F'[:,]' '
             /^LF:/ { total += $2 }
@@ -47,13 +47,13 @@ jobs:
               percentage = (covered / total) * 100
               printf "Cobertura: %.2f%% (%d/%d linhas)\n", percentage, covered, total
               if (percentage < 60) {
-                print "Cobertura abaixo do minimo de 60%."
+                print "Cobertura abaixo do mínimo de 60%."
                 exit 1
               }
             }
           ' coverage/lcov.info
 
-      - name: Compilar versao web
+      - name: Compilar versão web
         run: flutter build web
 
   dependencias:
@@ -65,11 +65,11 @@ jobs:
       pull-requests: read
 
     steps:
-      - name: Baixar codigo
+      - name: Baixar código
         uses: actions/checkout@v6
 
-      - name: Revisar dependencias
-        uses: actions/dependency-review-action@v4
+      - name: Revisar dependências
+        uses: actions/dependency-review-action@v501
         with:
           fail-on-severity: critical
 
@@ -86,11 +86,11 @@ jobs:
           DEPENDENCIAS_RESULT: ${{ needs.dependencias.result }}
         run: |
           if [ "$QUALIDADE_RESULT" != "success" ]; then
-            echo "O job qualidade nao passou."
+            echo "O job qualidade não passou."
             exit 1
           fi
           if [ "$DEPENDENCIAS_RESULT" != "success" ] && [ "$DEPENDENCIAS_RESULT" != "skipped" ]; then
-            echo "O job dependencias nao passou."
+            echo "O job dependencias não passou."
             exit 1
           fi
-          echo "Todos os jobs obrigatorios passaram."
+          echo "Todos os jobs obrigatórios passaram."
