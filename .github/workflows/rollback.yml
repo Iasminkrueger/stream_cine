@@ -1,0 +1,59 @@
+
+# MODELO DE ROLLBACK - Stream Cine
+# Recupera o pacote de uma Release anterior.
+# Usa o mesmo ambiente production do CD.
+
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag da versao para a qual voltar (ex.: v1.0.0)'
+        required: true
+        type: string
+
+concurrency:
+  group: cd-refs/heads/main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  rollback:
+    name: Rollback para ${{ inputs.tag }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ inputs.tag }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TAG: ${{ inputs.tag }}
+
+    steps:
+      - name: Validar tag e baixar pacote da Release
+        run: |
+          echo "$TAG" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$' || {
+            echo "::error::Tag invalida: use o formato vX.Y.Z"
+            exit 1
+          }
+
+          mkdir -p entrega
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern '*.zip' --dir entrega
+          ls entrega
+
+      - name: Marcar Release como versao oficial (Latest)
+        run: gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --latest
+
+      - name: Extrair pacote
+        run: mkdir site && unzip -q entrega/*.zip -d site
+
+      - name: Registrar no resumo de auditoria
+        run: |
+          {
+            echo "## Rollback executado"
+            echo "- Versao oficial voltou para **$TAG**"
+            echo "- Solicitado por: @$GITHUB_ACTOR"
+            echo "- Proximo passo: abrir uma Issue com o motivo e corrigir a main (revert ou fix via PR)."
+          } >> "$GITHUB_STEP_SUMMARY"
