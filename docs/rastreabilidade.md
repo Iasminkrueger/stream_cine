@@ -1,138 +1,79 @@
-﻿
-# Rastreabilidade de Versões — Stream Cine
+﻿# Rastreabilidade de Versões — Stream Cine
 
 ## 1. Objetivo
 
-Registrar o caminho de uma versão do Stream Cine desde sua identificação até sua publicação, incluindo Release, tag, commit, Pull Request, revisão humana, integração contínua, Issue e aprovação de produção.
+Documentar as versões, alterações, aprovações e entregas do projeto Stream Cine, mantendo o histórico de decisões e evidências no GitHub.
 
 ## 2. Versão de referência
 
-| Item | Evidência |
+| Item | Registro |
 |---|---|
-| Release | [v1.4.0 — Baseline inicial](https://github.com/Iasminkrueger/stream_cine/releases/tag/v1.4.0) |
-| Tag | v1.4.0 |
-| Commit | [4ca2bef — Adiciona pipeline de seguranca](https://github.com/Iasminkrueger/stream_cine/commit/4ca2befe6b24613f5900000616121d7babf8111d) |
+| Release | [v1.4.0](https://github.com/Iasminkrueger/stream_cine/releases/tag/v1.4.0) |
+| Tag | `v1.4.0` |
+| Commit | [`4ca2bef`](https://github.com/Iasminkrueger/stream_cine/commit/4ca2befe6b24613f5900000616121d7babf8111d) |
 | Data do commit | 23/09/2026 |
-| Data de publicação da Release | 16/11/2026 |
-| Pacote | [stream_cine-v1.4.0.zip](https://github.com/Iasminkrueger/stream_cine/releases/download/v1.4.0/stream_cine-v1.4.0.zip) |
-| PR de origem do commit | Não identificado; o commit aparece diretamente no histórico da main. |
+| Publicação | 16/11/2026 |
+| Pacote | [Download ZIP](https://github.com/Iasminkrueger/stream_cine/releases/download/v1.4.0/stream_cine-v1.4.0.zip) |
 
-## 3. Relação com Pull Requests
+## 3. Pull Requests
 
-| PR | Finalidade | Situação |
+| PR | Alteração | Situação |
 |---|---|---|
-| [PR #9](https://github.com/Iasminkrueger/stream_cine/pull/9) | Configuração de integração contínua | Aprovado por juliasgr e integrado em 11/11/2026 |
-| [PR #10](https://github.com/Iasminkrueger/stream_cine/pull/10) | Entrega contínua e rollback | Checks aprovados; aguardando revisão e integração |
-| [PR #11](https://github.com/Iasminkrueger/stream_cine/pull/11) | Governança, Dependabot, CCM, ADRs e onboarding | Checks aprovados; aguardando revisão e integração |
-| [PR #7](https://github.com/Iasminkrueger/stream_cine/pull/7) | Atualização de cached_network_image para 4.0.7 | Pendente de correção da CI e revisão humana |
+| [#9](https://github.com/Iasminkrueger/stream_cine/pull/9) | Integração contínua | Aprovado e integrado |
+| [#10](https://github.com/Iasminkrueger/stream_cine/pull/10) | Entrega contínua e rollback | Aprovado e integrado |
+| [#11](https://github.com/Iasminkrueger/stream_cine/pull/11) | Governança e documentação | Aprovado e integrado |
+| [#13](https://github.com/Iasminkrueger/stream_cine/pull/13) | Atualização do actions/checkout | Integrado |
+| [#15](https://github.com/Iasminkrueger/stream_cine/pull/15) | Atualização do cached_network_image para 4.0.7 | Aprovado e integrado |
+| [#7](https://github.com/Iasminkrueger/stream_cine/pull/7) | Atualização de dependência | Fechado sem integração |
 
-## 4. Revisão humana e integração contínua
+As revisões humanas dos PRs #9, #10, #11 e #15 foram realizadas por `juliasgr`.
 
-### PR #9 — Integração contínua
+## 4. Dependências e qualidade
 
-- Revisora: juliasgr.
-- Decisão: APPROVED.
-- Comentário da revisão: "feito :)"
-- Integração: 11/11/2026.
-- Commit de integração: fe7e7f0.
+As dependências são acompanhadas pelo Dependabot, com atualizações propostas por Pull Requests.
 
-### Execução da CI da versão de referência
+Versões atuais relevantes:
 
-A execução do workflow Segurança e qualidade no commit 4ca2bef terminou com sucesso em 23/09/2026.
+- `cached_network_image`: `4.0.7`;
+- `actions/checkout`: `7`.
 
-[Consultar execução no GitHub Actions](https://github.com/Iasminkrueger/stream_cine/actions/runs/35890347069)
+A integração das alterações depende das verificações automatizadas e da revisão necessária.
 
-A verificação de segurança foi aprovada. A verificação de dependências foi ignorada nessa execução porque o evento foi um push na main.
+## 5. Gestão de riscos
 
-### PR #10 — Entrega contínua
+A [Issue #12 — CCM](https://github.com/Iasminkrueger/stream_cine/issues/12) registra a avaliação de risco alto da atualização do `cached_network_image`.
 
-Os quatro checks do commit consultado estão aprovados:
+O registro contém impactos possíveis, plano de testes e estratégia de rollback com referência à Release `v1.4.0`.
 
-- ci-ok;
-- qualidade;
-- titulo-pr;
-- dependencias.
+**Situação:** Issue aberta, aguardando atualização e registro formal da decisão de risco.
 
-A aprovação humana e a integração ainda estão pendentes.
+## 6. Entrega e recuperação
 
-### PR #11 — Governança
+Os workflows de integração contínua, entrega contínua e rollback estão versionados no repositório:
 
-Os quatro checks do commit consultado estão aprovados:
+- `.github/workflows/ci.yml`
+- `.github/workflows/cd.yml`
+- `.github/workflows/rollback.yml`
 
-- ci-ok;
-- qualidade;
-- titulo-pr;
-- dependencias.
-
-A revisão de juliasgr foi solicitada e ainda está pendente.
-
-### PR #7 — Dependabot
-
-A atualização proposta é da versão 3.4.1 para 4.0.7.
-
-A investigação identificou incompatibilidade entre a versão Flutter/Dart utilizada pela CI da main e uma dependência transitiva da atualização.
-
-A execução falhou durante flutter pub get, antes da realização dos testes do aplicativo.
-
-O PR #10 contém a atualização da CI para Flutter 3.50.0. Após sua integração, será necessário atualizar a branch do PR #7 e executar novamente as verificações.
-
-O PR #7 não deve ser integrado antes da aprovação da CI e da revisão humana.
-
-## 5. Issue de gestão de risco — CCM
-
-Foi criada a [Issue #12 — CCM: avaliar atualização major de cached_network_image](https://github.com/Iasminkrueger/stream_cine/issues/12).
-
-A Issue registra:
-
-- Classificação de risco alto;
-- Possíveis impactos na exibição e no cache das imagens;
-- Plano de testes;
-- Plano de rollback com referência à Release/tag v1.4.0.
-
-A decisão do revisor permanece pendente. A mudança não deve ser integrada enquanto não houver decisão humana registrada.
-
-## 6. Aprovação de produção e rollback
-
-A estratégia de entrega contínua está documentada no PR #10, incluindo workflow de CD e workflow de rollback.
-
-A execução de produção com aprovação pelo ambiente do GitHub ainda não foi comprovada.
-
-Também não há evidência de uma execução real de rollback.
-
-Esses registros deverão ser adicionados após a integração dos workflows e a realização dos procedimentos.
+A execução de produção com aprovação e a realização de um rollback ainda precisam de comprovação.
 
 ## 7. Onboarding
 
-O guia de onboarding está em:
+O procedimento de instalação, execução e contribuição está documentado em [docs/onboarding.md](onboarding.md).
 
-[docs/onboarding.md](onboarding.md)
+A validação prática por outro colega ainda está pendente.
 
-O documento apresenta instalação, execução, testes, criação de branches, Pull Requests e pipeline de integração contínua.
+## 8. Pendências
 
-A validação prática por outra pessoa ainda está pendente. Será necessário que um colega siga o guia e registre eventuais correções por meio de um Pull Request.
-
-## 8. Lacunas identificadas
-
-| Pendência | Situação |
+| Atividade | Situação |
 |---|---|
-| Identificar PR de origem do commit 4ca2bef | Não identificado |
-| Registrar aprovação do PR #9 | Concluído |
-| Aprovação e integração do PR #10 | Pendente |
-| Aprovação e integração do PR #11 | Pendente |
-| Corrigir e validar CI do PR #7 | Pendente |
-| Decisão humana da Issue #12 | Pendente |
-| Validação do onboarding por colega | Pendente |
-| Execução de CD com aprovação de produção | Pendente |
-| Execução e comprovação de rollback | Pendente |
+| Atualizar a Issue #12 e registrar decisão de risco | Pendente |
+| Validar o onboarding com outro colega | Pendente |
+| Comprovar entrega em produção com aprovação | Pendente |
+| Executar e documentar um rollback | Pendente |
 
 ## 9. Conclusão
 
-A Release v1.4.0 possui tag, commit, pacote ZIP e execução de segurança identificados.
+O projeto possui histórico de versões, Pull Requests revisados, integração contínua, entrega contínua e gerenciamento de dependências documentados.
 
-O PR #9 comprova uma revisão humana e integração da configuração de CI.
-
-Os PRs #10 e #11 possuem verificações automáticas aprovadas, mas ainda aguardam revisão e integração.
-
-A atualização de dependência do PR #7 permanece bloqueada por incompatibilidade do SDK na CI atual.
-
-A rastreabilidade está documentada com evidências disponíveis e pendências explicitamente identificadas. Os registros deverão ser atualizados conforme novas aprovações e execuções forem realizadas.
+As pendências restantes estão identificadas e poderão ser atualizadas conforme novas evidências forem registradas no GitHub.
