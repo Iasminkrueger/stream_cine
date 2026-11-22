@@ -73,6 +73,12 @@ O código-fonte é versionado com Git e hospedado no GitHub. O projeto utiliza a
 
 O Plano de Gerenciamento de Configuração (Enfoque DevOps) está disponível em [docs/Gerenciamento_Configuracao_Stream_Cine.pdf](docs/Gerenciamento_Configuracao_Stream_Cine.pdf).
 
+
+## Evidências das atividades — Integração Contínua
+
+[Abrir imagem das evidências da Aula 2](docs/img/evidencias-aula-2.png)
+
+
 ## Contribuição
 
 Alterações no projeto podem ser organizadas por meio de branches e Pull Requests, permitindo revisar as modificações antes de incorporá-las à branch principal.
