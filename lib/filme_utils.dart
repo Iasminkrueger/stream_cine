@@ -2,7 +2,9 @@ List<Map<String, dynamic>> filtrarFilmes(
   List<Map<String, dynamic>> filmes,
   String termo,
 ) {
-  if (termo.isEmpty) {
+  final termoNormalizado = termo.trim().toLowerCase();
+
+  if (termoNormalizado.isEmpty) {
     return filmes;
   }
 
@@ -10,6 +12,6 @@ List<Map<String, dynamic>> filtrarFilmes(
     return filme['nome']
         .toString()
         .toLowerCase()
-        .contains(termo.toLowerCase());
+        .contains(termoNormalizado);
   }).toList();
 }
