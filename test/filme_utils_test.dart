@@ -1,6 +1,6 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stream_cine/filme_utils.dart';
+
 void main() {
   final filmes = [
     {'nome': 'Homem-Aranha'},
@@ -25,5 +25,12 @@ void main() {
     final resultado = filtrarFilmes(filmes, 'Avatar');
 
     expect(resultado, isEmpty);
+  });
+
+  test('Deve retornar todos os filmes quando a busca tiver apenas espaços', () {
+    final resultado = filtrarFilmes(filmes, '   ');
+
+    expect(resultado.length, 3);
+    expect(resultado, equals(filmes));
   });
 }
